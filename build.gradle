@@ -1,0 +1,67 @@
+apply plugin: 'java'
+repositories {
+    mavenCentral()
+}
+dependencies {
+    runtime 'commons-codec:commons-codec:1.5'
+    compile 'org.apache.tomcat:tomcat-catalina:7.0.47'
+
+
+//    compile 'org.apache.tomcat.embed:tomcat-embed-core:7.0'
+//    run 'org.apache.tomcat.embed:tomcat-embed-core:7.0'
+
+
+}
+task execution(type: JavaExec, dependsOn: classes) {
+
+    String tomcatlibs=""
+    file('C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib')
+            .listFiles().findAll {it.name.endsWith('.jar')}.each { jarFile -> tomcatlibs += jarFile.absolutePath + ";" }
+
+
+//    file('C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\bin')
+//            .listFiles().findAll {it.name.endsWith('.jar')}.each { jarFile -> tomcatlibs += jarFile.absolutePath + ";"}
+
+    println tomcatlibs
+
+    main = 'com.yaguang.utility.TomcatInstance'
+    args = "The rain in Spain falls mainly in the plain".split().toList()
+
+
+    jvmArgs '-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005'
+
+
+    classpath configurations.runtime
+    classpath './build/classes/main'
+    classpath 'C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib\\annotations-api.jar'
+    classpath 'C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib\\catalina-ha.jar'
+    classpath 'C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib\\catalina.jar'
+    classpath 'C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib\\jasper.jar'
+    classpath 'C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib\\servlet-api.jar'
+    classpath 'C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib\\tomcat-coyote.jar'
+    classpath 'C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib\\tomcat-util.jar'
+    classpath 'C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib\\tomcat-coyote.jar'
+    classpath 'C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib\\tomcat-api.jar'
+    classpath 'C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib\\jsp-api.jar'
+
+
+}
+
+task hello << {
+
+
+    println "-----------------------------------------------------------------------"
+    String tomcatlibs=""
+    file('C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\lib')
+            .listFiles().findAll {it.name.endsWith('.jar')}.each { jarFile -> tomcatlibs += jarFile.absolutePath + ";" }
+
+
+    file('C:\\D\\D\\all\\D\\bk\\d\\POC\\tomcat\\apache-tomcat-7.0.47\\bin')
+            .listFiles().findAll {it.name.endsWith('.jar')}.each { jarFile -> tomcatlibs += jarFile.absolutePath + ";"}
+
+
+    println "-----------------------------------------------------------------------"
+    println tomcatlibs
+    println "-----------------xxxxxxxxxxxxxxxxxxxxxxxx------------------------------------------------------"
+//    classpath './build/classes/main'
+}
